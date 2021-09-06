@@ -1,6 +1,8 @@
 package com.example.androidlabaptech1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,38 +15,29 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView lvContact;
-    private List<ContactModel> listContacts = new ArrayList<>();
+    private List<Product> listProduct = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initData();
-        lvContact = (ListView) findViewById(R.id.lvContact);
-        ContactAdapter adapter = new ContactAdapter(listContacts, this);
-        lvContact.setAdapter(adapter);
 
-        lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ContactModel contactModel = listContacts.get(i);
-                Toast.makeText(MainActivity.this, contactModel.getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        ProductAdapter adapter = new ProductAdapter(this, listProduct);
 
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
 
+        RecyclerView rvProduct = findViewById(R.id.rvProduct);
+        rvProduct.setLayoutManager(layoutManager);
+        rvProduct.setAdapter(adapter);
     }
 
     private void initData() {
-        ContactModel contact = new ContactModel("Name1", "09812379873", R.drawable.img);
-        listContacts.add(contact);
-        contact = new ContactModel("Name2", "01012379873", R.drawable.img_1);
-        listContacts.add(contact);
-        contact = new ContactModel("Name3", "09812371873", R.drawable.img_2);
-        listContacts.add(contact);
-        contact = new ContactModel("Name4", "09812379823", R.drawable.img_3);
-        listContacts.add(contact);
+        listProduct.add(new Product("Product1", "100000", R.drawable.img_3));
+        listProduct.add(new Product("Product2", "200000", R.drawable.img_3));
+        listProduct.add(new Product("Product3", "120000", R.drawable.img_3));
+        listProduct.add(new Product("Product4", "150000", R.drawable.img_3));
+        listProduct.add(new Product("Product5", "190000", R.drawable.img_3));
 
     }
 }
